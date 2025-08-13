@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta content="visita nuestro Bingo Digital y nuestra presencia en linea" name="description">
+    <meta content="Bingo 3.0 Digital" name="keywords">
+
+    <!-- Favicons -->
+    <link href="img/logo-1.png" rel="icon">
+    <link href="img/logo-1.png" rel="apple-touch-icon">
+
+    <title>Bingo 3.0 - Jugar</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container juego-container">
+        <header>
+            <h1>🎯 Bingo 3.0 - Juego</h1>
+            <div class="stats">
+                <span>Cartones: <span id="cartonesJuego">0</span></span>
+                <span>Gastado: $<span id="gastadoJuego">0</span></span>
+                <span>Ganado: $<span id="ganadoJuego">0</span></span>
+            </div>
+        </header>
+
+        <div class="juego-content">
+            <div class="numeros-disponibles">
+                <h3>Números Disponibles</h3>
+                <div class="numeros-grid" id="numerosGrid"></div>
+            </div>
+
+            <div class="caja-cristal">
+                <h3>Números Sorteados</h3>
+                <div class="cristal-container" id="cristalContainer">
+                    <div class="numeros-sorteados" id="numerosSorteados"></div>
+                </div>
+                <div class="controles-juego">
+                    <button id="btnJugar" class="btn-jugar-grande">🎲 JUGAR</button>
+                    <button id="btnReiniciar" class="btn-reiniciar">🔄 Reiniciar Partida</button>
+                    <button id="btnLimpiar" class="btn-limpiar">🗑️ Limpiar Todo</button>
+                </div>
+            </div>
+
+            <div class="cartones-juego">
+                <h3>Mis Cartones</h3>
+                <div id="cartonesJuegoContainer"></div>
+            </div>
+        </div>
+
+        <div class="navegacion-juego">
+            <a href="index.html" class="btn-volver">← Volver a Comprar</a>
+        </div>
+    </div>
+
+    <!-- Modal de Victoria -->
+    <div id="modalVictoria" class="modal">
+        <div class="modal-content">
+            <h2>🎉 ¡FELICITACIONES!</h2>
+            <div id="mensajeVictoria"></div>
+            <button id="cerrarModal" class="btn-cerrar">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="js/script-juego.js"></script>
+</body>
+</html>

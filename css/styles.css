@@ -1,0 +1,945 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+  color: white;
+}
+
+header h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+header p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+main {
+  background: white;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: #4a5568;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 10px;
+}
+
+/* Sección de compra de cartones */
+.carton-purchase {
+  background: #f7fafc;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+}
+
+.purchase-controls {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.btn {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background: #4299e1;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #3182ce;
+  transform: translateY(-2px);
+}
+
+.carton-info {
+  display: flex;
+  gap: 20px;
+  font-size: 1rem;
+}
+
+.carton-info span {
+  color: #4a5568;
+}
+
+/* Tabla de números */
+.table-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: #f7fafc;
+  padding: 20px;
+  border-radius: 10px;
+  border: 2px solid #e2e8f0;
+}
+
+.number-table-wrapper {
+  flex: 1;
+  text-align: center;
+}
+
+.range-indicator {
+  margin-bottom: 15px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.number-table {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 8px;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.number-cell {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #cbd5e0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.number-cell:hover {
+  border-color: #4299e1;
+  transform: scale(1.05);
+}
+
+.number-cell.selected {
+  background: #4299e1;
+  color: white;
+  border-color: #3182ce;
+}
+
+.number-cell.disabled {
+  background: #f7fafc;
+  color: #a0aec0;
+  cursor: not-allowed;
+  border-color: #e2e8f0;
+}
+
+.number-cell.disabled:hover {
+  transform: none;
+  border-color: #e2e8f0;
+}
+
+.nav-btn {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #cbd5e0;
+  border-radius: 50%;
+  background: white;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  color: #4a5568;
+}
+
+.nav-btn:hover:not(:disabled) {
+  background: #4299e1;
+  color: white;
+  border-color: #3182ce;
+}
+
+.nav-btn:disabled {
+  background: #f7fafc;
+  color: #a0aec0;
+  cursor: not-allowed;
+  border-color: #e2e8f0;
+}
+
+/* Cartones */
+.cartones-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.no-cartones {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 40px;
+  color: #718096;
+  font-size: 1.1rem;
+}
+
+.carton {
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.carton.active {
+  border-color: #4299e1;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.1);
+}
+
+.carton-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.carton-title {
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.carton-status {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-incomplete {
+  background: #fed7d7;
+  color: #c53030;
+}
+
+.status-complete {
+  background: #c6f6d5;
+  color: #2d7d32;
+}
+
+.carton-numbers {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.carton-number {
+  width: 50px;
+  height: 50px;
+  border: 2px dashed #cbd5e0;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #a0aec0;
+}
+
+.carton-number.filled {
+  background: #4299e1;
+  color: white;
+  border: 2px solid #3182ce;
+  border-style: solid;
+}
+
+/* Sección de juego */
+.jugar-section {
+  margin-top: 30px;
+  padding: 25px;
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  border-radius: 15px;
+  text-align: center;
+  color: white;
+}
+
+.jugar-container h3 {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.jugar-container p {
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.btn-jugar {
+  display: inline-block;
+  padding: 15px 30px;
+  background: white;
+  color: #38a169;
+  text-decoration: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btn-jugar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* Página de juego */
+.juego-container {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+}
+
+.juego-container header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stats {
+  display: flex;
+  gap: 20px;
+  font-size: 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 10px 20px;
+  border-radius: 25px;
+  backdrop-filter: blur(10px);
+}
+
+.stats span {
+  color: white;
+  font-weight: 600;
+}
+
+.juego-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.numeros-disponibles,
+.caja-cristal,
+.cartones-juego {
+  background: white;
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.numeros-grid {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 5px;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.numero-circulo {
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+}
+
+.numero-circulo.sorteado {
+  background: #fc8181;
+  color: white;
+  border-color: #e53e3e;
+  animation: pulse 0.5s ease-in-out;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.cristal-container {
+  background: linear-gradient(145deg, #f8fdff, #e8f4f8);
+  border: 4px solid transparent;
+  background-clip: padding-box;
+  border-radius: 20px;
+  height: 350px; /* Aumentado para mejor visualización */
+  padding: 25px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+  box-shadow: inset 0 2px 10px rgba(59, 130, 246, 0.1), 0 8px 32px rgba(59, 130, 246, 0.15), 0 0 0 1px
+    rgba(59, 130, 246, 0.2);
+}
+
+.cristal-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+      135deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.4) 35%,
+      rgba(255, 255, 255, 0.2) 40%,
+      transparent 50%
+    ), linear-gradient(45deg, transparent 60%, rgba(255, 255, 255, 0.1) 65%, transparent 70%);
+  pointer-events: none;
+  z-index: 1;
+  border-radius: 16px;
+}
+
+.cristal-container::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, #3b82f6, #06b6d4, #8b5cf6, #3b82f6);
+  border-radius: 22px;
+  z-index: -1;
+  opacity: 0.6;
+}
+
+/* Modificando contenedor de números sorteados para usar CSS Grid */
+.numeros-sorteados {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(10, 1fr);
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+  min-height: 100%;
+  padding: 10px;
+  align-content: end; /* Alinear contenido hacia abajo */
+}
+
+/* Eliminando estilos de fila ya que ahora usamos grid individual */
+.fila-numeros {
+  display: contents; /* Hace que los hijos se comporten como si fueran hijos directos del grid */
+}
+
+.fila-numeros.nueva-fila {
+  display: contents;
+}
+
+.numero-sorteado {
+  width: 50px; /* Aumentado para mejor visibilidad */
+  height: 50px;
+  background: #4299e1;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 1.2rem; /* Aumentado */
+  box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.numero-sorteado.recien-sorteado {
+  background: linear-gradient(135deg, #48bb78, #38a169);
+  box-shadow: 0 8px 25px rgba(72, 187, 120, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 0 20px
+    rgba(72, 187, 120, 0.4);
+  animation: pulso-verde-mejorado 0.6s ease-in-out infinite alternate;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+/* Agregando animación de caída individual para cada número */
+.numero-sorteado.cayendo {
+  animation: caida-individual 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+@keyframes caida-individual {
+  0% {
+    transform: translateY(-200px) rotate(-180deg) scale(0.3);
+    opacity: 0;
+  }
+  30% {
+    transform: translateY(-80px) rotate(-90deg) scale(0.7);
+    opacity: 0.5;
+  }
+  60% {
+    transform: translateY(15px) rotate(10deg) scale(1.1);
+    opacity: 0.8;
+  }
+  80% {
+    transform: translateY(-8px) rotate(-5deg) scale(1.05);
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulso-verde-mejorado {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 8px 25px rgba(72, 187, 120, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 0 20px
+      rgba(72, 187, 120, 0.4);
+  }
+  100% {
+    transform: scale(1.15);
+    box-shadow: 0 12px 35px rgba(72, 187, 120, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.6), 0 0 30px
+      rgba(72, 187, 120, 0.6);
+  }
+}
+
+.controles-juego {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-jugar-grande {
+  padding: 15px 30px;
+  background: #48bb78;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(72, 187, 120, 0.4);
+}
+
+.btn-jugar-grande:hover {
+  background: #38a169;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(72, 187, 120, 0.6);
+}
+
+.btn-reiniciar,
+.btn-limpiar {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-reiniciar {
+  background: #ed8936;
+  color: white;
+}
+
+.btn-limpiar {
+  background: #e53e3e;
+  color: white;
+}
+
+.btn-reiniciar:hover {
+  background: #dd6b20;
+  transform: translateY(-2px);
+}
+
+.btn-limpiar:hover {
+  background: #c53030;
+  transform: translateY(-2px);
+}
+
+.carton-juego {
+  background: #f7fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  transition: all 0.3s ease;
+}
+
+.carton-juego.ganador {
+  background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
+  border-color: #48bb78;
+  animation: victoria 1s ease-in-out;
+}
+
+@keyframes victoria {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+.carton-numero {
+  width: 35px;
+  height: 35px;
+  border: 2px solid #cbd5e0;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  background: white;
+}
+
+.carton-numero.acertado {
+  background: #48bb78;
+  color: white;
+  border-color: #38a169;
+  animation: acierto 0.5s ease-in-out;
+}
+
+@keyframes acierto {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.navegacion-juego {
+  text-align: center;
+}
+
+.btn-volver {
+  display: inline-block;
+  padding: 12px 25px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  text-decoration: none;
+  border-radius: 25px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btn-volver:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Modal */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(5px);
+}
+
+.modal-content {
+  background-color: white;
+  margin: 10% auto;
+  padding: 30px;
+  border-radius: 15px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  animation: modalAppear 0.3s ease-out;
+}
+
+@keyframes modalAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(-50px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.btn-cerrar {
+  padding: 12px 25px;
+  background: #4299e1;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: all 0.3s ease;
+}
+
+.btn-cerrar:hover {
+  background: #3182ce;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .juego-content {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .stats {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .juego-container header {
+    flex-direction: column;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  main {
+    padding: 20px;
+  }
+
+  .purchase-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .carton-info {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  .table-container {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .number-table {
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 5px;
+  }
+
+  .number-cell {
+    width: 40px;
+    height: 40px;
+    font-size: 1rem;
+  }
+
+  .cartones-container {
+    grid-template-columns: 1fr;
+  }
+
+  .carton-numbers {
+    gap: 8px;
+  }
+
+  .carton-number {
+    width: 45px;
+    height: 45px;
+  }
+
+  .numeros-grid {
+    grid-template-columns: repeat(5, 1fr);
+    gap: 3px;
+  }
+
+  .numero-circulo {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+
+  .numero-sorteado {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+
+  .carton-juego {
+    padding: 12px;
+  }
+
+  .carton-numero {
+    width: 30px;
+    height: 30px;
+    font-size: 0.9rem;
+  }
+
+  .stats {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    width: 25px;
+    height: 25px;
+    font-size: 0.8rem;
+  }
+
+  .cristal-container {
+    height: 150px;
+    padding: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  .container {
+    padding: 5px;
+  }
+
+  main {
+    padding: 15px;
+  }
+
+  .number-table {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
+
+  .number-cell {
+    width: 35px;
+    height: 35px;
+    font-size: 0.9rem;
+  }
+
+  .numeros-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .numero-circulo {
+    width: 25px;
+    height: 25px;
+    font-size: 0.7rem;
+  }
+
+  .numero-sorteado {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+
+  .carton-numero {
+    width: 25px;
+    height: 25px;
+    font-size: 0.8rem;
+  }
+
+  .stats {
+    font-size: 0.9rem;
+    padding: 8px 15px;
+  }
+
+  .btn-edit,
+  .btn-delete {
+    width: 22px;
+    height: 22px;
+    font-size: 0.7rem;
+  }
+
+  .cristal-container {
+    height: 150px;
+    padding: 10px;
+  }
+}
+
+/* Agregando estilos para botones de editar/eliminar cartones */
+.carton-actions {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.btn-edit,
+.btn-delete {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-edit {
+  background: #ed8936;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #dd6b20;
+  transform: scale(1.1);
+}
+
+.btn-delete {
+  background: #e53e3e;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #c53030;
+  transform: scale(1.1);
+}

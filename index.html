@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta content="visita nuestro Bingo Digital y nuestra presencia en linea" name="description">
+    <meta content="Bingo 3.0 Digital" name="keywords">
+
+    <!-- Favicons -->
+    <link href="img/logo-1.png" rel="icon">
+    <link href="img/logo-1.png" rel="apple-touch-icon">
+
+
+    <title>Bingo 3.0 - Selecciona tus Números</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Bingo 3.0 Digital</h1>
+            <p>Selecciona tus números favoritos para cada cartón</p>
+        </header>
+
+        <main>
+            <!-- Sección de compra de cartones -->
+            <section class="carton-purchase">
+                <h2>Comprar Cartones</h2>
+                <div class="purchase-controls">
+                    <button id="buyCarton" class="btn btn-primary">
+                        🎫 Comprar Cartón ($2,000)
+                    </button>
+                    <div class="carton-info">
+                        <span>Cartones comprados: <strong id="cartonCount">0</strong></span>
+                        <span>Total: $<strong id="totalCost">0</strong></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tabla de números deslizable -->
+            <section class="number-selection">
+                <h2>Selecciona tus Números</h2>
+                <div class="table-container">
+                    <button id="prevRange" class="nav-btn nav-prev" disabled>‹</button>
+                    <div class="number-table-wrapper">
+                        <div class="range-indicator">
+                            <span id="rangeDisplay">0 - 19</span>
+                        </div>
+                        <div class="number-table" id="numberTable">
+                            <!-- Los números se generarán dinámicamente -->
+                        </div>
+                    </div>
+                    <button id="nextRange" class="nav-btn nav-next">›</button>
+                </div>
+            </section>
+
+            <!-- Cartones comprados -->
+            <section class="cartones-section">
+                <h2>Mis Cartones</h2>
+                <div id="cartonesContainer" class="cartones-container">
+                    <div class="no-cartones">
+                        <p>🎫 No tienes cartones aún. ¡Compra tu primer cartón!</p>
+                    </div>
+                </div>
+                
+                <!-- Agregando botón para ir a jugar -->
+                <div class="jugar-section" id="jugarSection" style="display: none;">
+                    <div class="jugar-container">
+                        <h3>¿Listo para jugar?</h3>
+                        <p>Tienes cartones completos. ¡Es hora de jugar al bingo!</p>
+                        <a href="jugar.html" class="btn btn-jugar">🎲 IR A JUGAR</a>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
