@@ -255,6 +255,7 @@ h2 {
   display: flex;
   gap: 10px;
   justify-content: center;
+  
 }
 
 .carton-number {
@@ -347,9 +348,11 @@ h2 {
 
 .juego-content {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 350px 400px 350px; /* Anchos fijos específicos */
   gap: 30px;
   margin-bottom: 30px;
+  
+  justify-content: center; /* Centrar el grid */
 }
 
 .numeros-disponibles,
@@ -359,8 +362,154 @@ h2 {
   border-radius: 15px;
   padding: 25px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  width: 100%; /* Asegurar que use todo el ancho asignado */
+  min-width: 0; /* Prevenir overflow */
 }
 
+.cristal-container {
+  background: linear-gradient(145deg, #f8fdff, #e8f4f8);
+  border: 4px solid transparent;
+  background-clip: padding-box;
+  border-radius: 20px;
+  height: 650px; /* Aumentado de 400px a 650px para 10 filas */
+  width: 100%; /* Usar todo el ancho disponible */
+  padding: 25px;
+  margin-bottom: 20px;
+  position: relative;
+  overflow-y: hidden; /* Cambiado de auto a hidden para evitar scroll durante juego */
+  overflow-x: hidden;
+  box-shadow: inset 0 2px 10px rgba(59, 130, 246, 0.1), 0 8px 32px rgba(59, 130, 246, 0.15), 0 0 0 1px
+    rgba(59, 130, 246, 0.2);
+  flex: 1;
+  scroll-behavior: smooth;
+}
+
+#numerosSorteados {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: 60px;
+  gap: 8px;
+  padding: 15px;
+  align-content: end;
+  min-height: 100%;
+  width: 100%; /* Ancho fijo para evitar cambios */
+}
+
+.numero-sorteado {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+  color: white;
+  background: #4299e1; /* Azul por defecto */
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  justify-self: center;
+  align-self: center;
+}
+
+.numero-sorteado.recien-sorteado {
+  background: #48bb78 !important; /* Verde para número recién sorteado */
+  animation: pulso-verde 0.6s ease-in-out;
+  transform: scale(1.1);
+}
+
+.numero-sorteado.cayendo {
+  animation: caida-individual 0.6s ease-out;
+}
+
+@keyframes caida-individual {
+  0% {
+    transform: translateY(-100px) rotate(-180deg) scale(0.5);
+    opacity: 0;
+  }
+  50% {
+    transform: translateY(10px) rotate(-90deg) scale(1.1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0) rotate(0deg) scale(1.1);
+    opacity: 1;
+  }
+}
+
+@keyframes pulso-verde {
+  0%,
+  100% {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(72, 187, 120, 0.6);
+  }
+  50% {
+    transform: scale(1.2);
+    box-shadow: 0 0 30px rgba(72, 187, 120, 0.8);
+  }
+}
+
+.numeros-container,
+.cristal-container{
+  height: 650px; /* Aumentado de 400px a 650px */
+  overflow-y: auto;
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.cristal-container {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.2), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+}
+
+/* Agregando estilos para botones de editar/eliminar cartones */
+.carton-actions {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.btn-edit,
+.btn-delete {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-edit {
+  background: #ed8936;
+  color: white;
+}
+
+.btn-edit:hover {
+  background: #dd6b20;
+  transform: scale(1.1);
+}
+
+.btn-delete {
+  background: #e53e3e;
+  color: white;
+}
+
+.btn-delete:hover {
+  background: #c53030;
+  transform: scale(1.1);
+}
+
+/* Agregando estilos para números disponibles */
 .numeros-grid {
   display: grid;
   grid-template-columns: repeat(10, 1fr);
@@ -402,140 +551,7 @@ h2 {
   }
 }
 
-.cristal-container {
-  background: linear-gradient(145deg, #f8fdff, #e8f4f8);
-  border: 4px solid transparent;
-  background-clip: padding-box;
-  border-radius: 20px;
-  height: 350px; /* Aumentado para mejor visualización */
-  padding: 25px;
-  margin-bottom: 20px;
-  position: relative;
-  overflow-y: auto;
-  overflow-x: hidden;
-  box-shadow: inset 0 2px 10px rgba(59, 130, 246, 0.1), 0 8px 32px rgba(59, 130, 246, 0.15), 0 0 0 1px
-    rgba(59, 130, 246, 0.2);
-}
-
-.cristal-container::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-      135deg,
-      transparent 30%,
-      rgba(255, 255, 255, 0.4) 35%,
-      rgba(255, 255, 255, 0.2) 40%,
-      transparent 50%
-    ), linear-gradient(45deg, transparent 60%, rgba(255, 255, 255, 0.1) 65%, transparent 70%);
-  pointer-events: none;
-  z-index: 1;
-  border-radius: 16px;
-}
-
-.cristal-container::after {
-  content: "";
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  background: linear-gradient(45deg, #3b82f6, #06b6d4, #8b5cf6, #3b82f6);
-  border-radius: 22px;
-  z-index: -1;
-  opacity: 0.6;
-}
-
-/* Modificando contenedor de números sorteados para usar CSS Grid */
-.numeros-sorteados {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-rows: repeat(10, 1fr);
-  gap: 8px;
-  position: relative;
-  z-index: 2;
-  min-height: 100%;
-  padding: 10px;
-  align-content: end; /* Alinear contenido hacia abajo */
-}
-
-/* Eliminando estilos de fila ya que ahora usamos grid individual */
-.fila-numeros {
-  display: contents; /* Hace que los hijos se comporten como si fueran hijos directos del grid */
-}
-
-.fila-numeros.nueva-fila {
-  display: contents;
-}
-
-.numero-sorteado {
-  width: 50px; /* Aumentado para mejor visibilidad */
-  height: 50px;
-  background: #4299e1;
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 700;
-  font-size: 1.2rem; /* Aumentado */
-  box-shadow: 0 6px 20px rgba(66, 153, 225, 0.4), inset 0 2px 4px rgba(255, 255, 255, 0.3);
-  transition: all 0.3s ease;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-}
-
-.numero-sorteado.recien-sorteado {
-  background: linear-gradient(135deg, #48bb78, #38a169);
-  box-shadow: 0 8px 25px rgba(72, 187, 120, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 0 20px
-    rgba(72, 187, 120, 0.4);
-  animation: pulso-verde-mejorado 0.6s ease-in-out infinite alternate;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-}
-
-/* Agregando animación de caída individual para cada número */
-.numero-sorteado.cayendo {
-  animation: caida-individual 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-
-@keyframes caida-individual {
-  0% {
-    transform: translateY(-200px) rotate(-180deg) scale(0.3);
-    opacity: 0;
-  }
-  30% {
-    transform: translateY(-80px) rotate(-90deg) scale(0.7);
-    opacity: 0.5;
-  }
-  60% {
-    transform: translateY(15px) rotate(10deg) scale(1.1);
-    opacity: 0.8;
-  }
-  80% {
-    transform: translateY(-8px) rotate(-5deg) scale(1.05);
-    opacity: 0.95;
-  }
-  100% {
-    transform: translateY(0) rotate(0deg) scale(1);
-    opacity: 1;
-  }
-}
-
-@keyframes pulso-verde-mejorado {
-  0% {
-    transform: scale(1);
-    box-shadow: 0 8px 25px rgba(72, 187, 120, 0.6), inset 0 2px 4px rgba(255, 255, 255, 0.4), 0 0 20px
-      rgba(72, 187, 120, 0.4);
-  }
-  100% {
-    transform: scale(1.15);
-    box-shadow: 0 12px 35px rgba(72, 187, 120, 0.8), inset 0 2px 4px rgba(255, 255, 255, 0.6), 0 0 30px
-      rgba(72, 187, 120, 0.6);
-  }
-}
-
+/* Agregando estilos para botones de juego */
 .controles-juego {
   display: flex;
   gap: 15px;
@@ -592,6 +608,7 @@ h2 {
   transform: translateY(-2px);
 }
 
+/* Cartones en la página de juego */
 .carton-juego {
   background: #f7fafc;
   border: 2px solid #e2e8f0;
@@ -604,52 +621,57 @@ h2 {
 .carton-juego.ganador {
   background: linear-gradient(135deg, #c6f6d5, #9ae6b4);
   border-color: #48bb78;
-  animation: victoria 1s ease-in-out;
+  box-shadow: 0 0 20px rgba(72, 187, 120, 0.3);
+  animation: brillar 1s ease-in-out infinite alternate;
 }
 
-@keyframes victoria {
-  0%,
+@keyframes brillar {
+  0% {
+    box-shadow: 0 0 20px rgba(72, 187, 120, 0.3);
+  }
   100% {
-    transform: scale(1);
+    box-shadow: 0 0 30px rgba(72, 187, 120, 0.6);
   }
-  50% {
-    transform: scale(1.05);
-  }
+}
+
+.carton-juego-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.carton-juego-numeros {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
 }
 
 .carton-numero {
-  width: 35px;
-  height: 35px;
-  border: 2px solid #cbd5e0;
-  border-radius: 6px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
-  background: white;
+  font-weight: bold;
+  font-size: 1rem;
+  background: #e2e8f0;
+  color: #4a5568;
+  border: 2px solid #cbd5e0;
 }
 
-.carton-numero.acertado {
+.carton-numero.marcado {
   background: #48bb78;
   color: white;
   border-color: #38a169;
-  animation: acierto 0.5s ease-in-out;
+  box-shadow: 0 0 10px rgba(72, 187, 120, 0.5);
 }
 
-@keyframes acierto {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.2);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
-
+/* Navegación */
 .navegacion-juego {
   text-align: center;
+  margin-top: 20px;
 }
 
 .btn-volver {
@@ -662,11 +684,13 @@ h2 {
   font-weight: 600;
   transition: all 0.3s ease;
   backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .btn-volver:hover {
   background: rgba(255, 255, 255, 0.3);
   transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 
 /* Modal */
@@ -722,87 +746,31 @@ h2 {
   transform: translateY(-2px);
 }
 
-/* Responsive */
 @media (max-width: 1024px) {
   .juego-content {
     grid-template-columns: 1fr;
     gap: 20px;
+    height: auto;
   }
 
-  .stats {
-    flex-direction: column;
-    gap: 10px;
-    text-align: center;
+  .numeros-disponibles,
+  .caja-cristal {
+    height: 600px; /* Aumentado de 500px a 600px para tablets */
+    width: 100%;
+    max-width: 800px; /* Ancho máximo en tablets */
+    margin: 0 auto; /* Centrar */
   }
 
-  .juego-container header {
-    flex-direction: column;
-    text-align: center;
-  }
-}
-
-@media (max-width: 768px) {
-  .container {
-    padding: 10px;
+  .cristal-container {
+    height: 550px; /* Aumentado de 350px a 550px para tablets */
+    width: 100%;
   }
 
-  header h1 {
-    font-size: 2rem;
-  }
-
-  main {
-    padding: 20px;
-  }
-
-  .purchase-controls {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .carton-info {
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-
-  .table-container {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .number-table {
+  #numerosSorteados {
     grid-template-columns: repeat(5, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    gap: 5px;
-  }
-
-  .number-cell {
-    width: 40px;
-    height: 40px;
-    font-size: 1rem;
-  }
-
-  .cartones-container {
-    grid-template-columns: 1fr;
-  }
-
-  .carton-numbers {
-    gap: 8px;
-  }
-
-  .carton-number {
-    width: 45px;
-    height: 45px;
-  }
-
-  .numeros-grid {
-    grid-template-columns: repeat(5, 1fr);
-    gap: 3px;
-  }
-
-  .numero-circulo {
-    width: 30px;
-    height: 30px;
-    font-size: 0.8rem;
+    grid-auto-rows: 45px; /* Reducir altura de filas para que quepan más */
+    gap: 6px; /* Reducir gap para optimizar espacio */
+    padding: 10px; /* Reducir padding interno */
   }
 
   .numero-sorteado {
@@ -811,35 +779,6 @@ h2 {
     font-size: 0.9rem;
   }
 
-  .carton-juego {
-    padding: 12px;
-  }
-
-  .carton-numero {
-    width: 30px;
-    height: 30px;
-    font-size: 0.9rem;
-  }
-
-  .stats {
-    font-size: 0.9rem;
-    padding: 8px 15px;
-  }
-
-  .btn-edit,
-  .btn-delete {
-    width: 25px;
-    height: 25px;
-    font-size: 0.8rem;
-  }
-
-  .cristal-container {
-    height: 150px;
-    padding: 10px;
-  }
-}
-
-@media (max-width: 480px) {
   header h1 {
     font-size: 1.8rem;
   }
@@ -863,26 +802,16 @@ h2 {
     font-size: 0.9rem;
   }
 
-  .numeros-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-
   .numero-circulo {
     width: 25px;
     height: 25px;
-    font-size: 0.7rem;
-  }
-
-  .numero-sorteado {
-    width: 30px;
-    height: 30px;
     font-size: 0.8rem;
   }
 
-  .carton-numero {
-    width: 25px;
-    height: 25px;
-    font-size: 0.8rem;
+  .carton-number {
+    width: 45px;
+    height: 45px;
+  
   }
 
   .stats {
@@ -896,50 +825,97 @@ h2 {
     height: 22px;
     font-size: 0.7rem;
   }
+}
 
+/* Agregando media query específico para dispositivos muy pequeños (370px y menos) */
+@media (max-width: 400px) {
   .cristal-container {
-    height: 150px;
+    height: 350px; /* Altura optimizada para pantallas muy pequeñas */
     padding: 10px;
+  }
+
+  #numerosSorteados {
+    grid-auto-rows: 40px; /* Filas más pequeñas */
+    gap: 4px; /* Gap mínimo */
+    padding: 8px; /* Reducir padding interno */
+  }
+
+  .numero-sorteado {
+    width: 30px;
+    height: 30px;
+    font-size: 0.8rem;
+  }
+
+  .juego-content {
+    gap: 15px; /* Reducir gap entre columnas */
+  }
+
+  .numeros-disponibles,
+  .caja-cristal,
+  .cartones-juego {
+    padding: 15px; /* Reducir padding de contenedores */
   }
 }
 
-/* Agregando estilos para botones de editar/eliminar cartones */
-.carton-actions {
-  display: flex;
-  gap: 5px;
-  align-items: center;
+@media (max-width: 390px) {
+  .cristal-container {
+    height: 320px !important; /* Altura específica para pantallas muy pequeñas */
+    padding: 8px !important;
+  }
+
+  #numerosSorteados {
+    grid-auto-rows: 35px !important; /* Filas más compactas */
+    gap: 3px !important; /* Gap mínimo */
+    padding: 5px !important;
+  }
+
+  .numero-sorteado {
+    width: 28px !important;
+    height: 28px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .numeros-disponibles,
+  .caja-cristal{
+    padding: 10px !important; /* Padding mínimo */
+    height: 400px !important;
+  }
+
+  .juego-content {
+    gap: 10px !important; /* Gap mínimo entre columnas */
+  }
+
+  .numero-circulo {
+    width: 25px !important;
+    height: 25px !important;
+    font-size: 0.7rem !important;
+  }
+
+  .numeros-grid {
+    grid-template-columns: repeat(4, 1fr) !important;
+  }
 }
 
-.btn-edit,
-.btn-delete {
-  width: 30px;
-  height: 30px;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 0.9rem;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+/* Agregando media query específico para caja-cristal en dispositivos de 370px */
+@media (max-width: 370px) {
+  .caja-cristal {
+    height: 200px !important;
+  }
 
-.btn-edit {
-  background: #ed8936;
-  color: white;
-}
+  .caja-cristal .cristal-container {
+    height: 180px !important;
+    padding: 5px !important;
+  }
 
-.btn-edit:hover {
-  background: #dd6b20;
-  transform: scale(1.1);
-}
+  .caja-cristal #numerosSorteados {
+    grid-auto-rows: 30px !important;
+    gap: 2px !important;
+    padding: 3px !important;
+  }
 
-.btn-delete {
-  background: #e53e3e;
-  color: white;
-}
-
-.btn-delete:hover {
-  background: #c53030;
-  transform: scale(1.1);
+  .caja-cristal .numero-sorteado {
+    width: 25px !important;
+    height: 25px !important;
+    font-size: 0.6rem !important;
+  }
 }
